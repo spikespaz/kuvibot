@@ -1,0 +1,41 @@
+# Configuration for the bot server itself.
+account_name = "kuvibot"
+# Secrets are kept in a separate file. This needs to be mutable.
+# If it isn't, you will be required to complete the OAuth2 flow every time.
+# This is here to support tools like Age and SOPS.
+secrets_file = "kuvibot/secrets.toml"
+# Channels to activate the bot for.
+channels = ["kuviman", "kuviboy"]
+
+# Global text commands work on all enabled channels.
+[[global.text_commands]]
+phrase = "!bot"
+text = "Here's my source code: https://github.com/kuviman/kuvibot"
+
+[[global.text_commands]]
+phrase = "!man"
+text = "alt account that is about programming (Rust): https://twitch.tv/kuviman"
+
+[[global.text_commands]]
+phrase = "!boy"
+text = "alt account that is about gaming (Factorio): https://twitch.tv/kuviboy"
+
+# Channels can have specific configuration.
+[channel."kuviman"]
+# Commands that are aliases to others.
+alias_commands = { "!alt" = "!boy" }
+
+# Text commands for the @kuviman channel.
+# [[channel."kuviman".text_commands]]
+
+[channel."kuviboy"]
+alias_commands = { "!alt" = "!man" }
+# The bot collects points and periodically redeems a rewards automatically.
+# After each automatic redeem, the bot chooses a new reward from this list
+# and saves points until it can redeem.
+bot_redeems = ["pushups"]
+
+[channel."kuviboy".rewards.pushups]
+reward_name = "10 Pushups"
+per_redeem = 10
+queue_max = 30
